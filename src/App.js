@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { ChakraProvider } from "@chakra-ui/react";
+import { Text, Box, VStack } from "@chakra-ui/react";
+import { useStore } from "./stores";
+import Todo from "./components/Todo";
+import TodoForm from "./components/TodoForm";
 
 function App() {
+  const todos = useStore((state) => state.todos);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ChakraProvider width="50%">
+      <Box width="600px">
+        <VStack>
+          <Text fontSize="6xl">Todo List!</Text>
+          <TodoForm />
+          {todos.map((todo) => (
+            <Box w="100%" mt="1">
+              <Todo
+                todo={todo.task}
+                id={todo.id}
+                isCompleted={todo.isCompleted}
+              />
+            </Box>
+          ))}
+        </VStack>
+      </Box>
+    </ChakraProvider>
   );
 }
 
