@@ -12,17 +12,21 @@ import { useState } from "react";
 function TodoForm() {
   const [text, setText] = useState("");
   const addTodo = useStore((state) => state.addTodo);
+  const handleSubmit = () => {
+    setText("");
+    addTodo(text);
+  };
   return (
     <Box w="100%">
       <form
         onSubmit={(evt) => {
           evt.preventDefault();
-          setText("");
-          addTodo(text);
+          handleSubmit();
         }}
       >
         <InputGroup>
           <Input
+            required
             value={text}
             placeholder="add todo..."
             size="lg"
@@ -30,7 +34,7 @@ function TodoForm() {
             onChange={(evt) => setText(evt.target.value)}
           />
           <InputRightElement
-            onClick={() => addTodo(text)}
+            onClick={handleSubmit}
             children={
               <IconButton
                 // mr="2"

@@ -13,8 +13,8 @@ function App() {
         <VStack>
           <Text fontSize="6xl">Todo List!</Text>
           <TodoForm />
-          {todos.map((todo) => (
-            <Box w="100%" mt="1">
+          {todos.map((todo, index) => (
+            <Box w="100%" mt="1" key={index}>
               <Todo
                 todo={todo.task}
                 id={todo.id}
